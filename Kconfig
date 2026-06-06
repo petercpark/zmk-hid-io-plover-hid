@@ -25,6 +25,10 @@ config ZMK_HID_IO_VOLUME_KNOB
     bool "Enable HID I/O Volume Knob"
     default n
 
+config ZMK_HID_IO_PLOVER_HID
+    bool "Enable HID I/O Plover HID (stenography)"
+    default n
+
 config ZMK_HID_IO_BLE_JOYSTICK_REPORT_QUEUE_SIZE
     int "Max number of mouse HID reports to queue for sending over BLE"
     default 20
@@ -40,6 +44,10 @@ config ZMK_HID_IO_OUTPUT_QUEUE_SIZE
 config ZMK_HID_IO_BLE_VOLUME_KNOB_REPORT_QUEUE_SIZE
     int "Max number of volume knob HID reports to queue for sending over BLE"
     default 8
+
+config ZMK_HID_IO_BLE_PLOVER_HID_REPORT_QUEUE_SIZE
+    int "Max number of Plover HID reports to queue for sending over BLE"
+    default 4
 
 DT_COMPAT_ZMK_INPUT_BEHAVIOR_FWD_TO_HID_IO := zmk,input-behavior-fwd-to-hid-io
 config ZMK_INPUT_BEHAVIOR_FWD_TO_HID_IO
@@ -61,3 +69,9 @@ DT_COMPAT_ZMK_BEHAVIOR_HID_IO_KEY_PRESS := zmk,behavior-hid-io-key-press
 config ZMK_BEHAVIOR_HID_IO_KEY_PRESS
     bool
     default $(dt_compat_enabled,$(DT_COMPAT_ZMK_BEHAVIOR_HID_IO_KEY_PRESS))
+
+DT_COMPAT_ZMK_BEHAVIOR_PLOVER_HID := zmk,behavior-plover-hid
+
+config ZMK_BEHAVIOR_PLOVER_HID
+    bool
+    default $(dt_compat_enabled,$(DT_COMPAT_ZMK_BEHAVIOR_PLOVER_HID))

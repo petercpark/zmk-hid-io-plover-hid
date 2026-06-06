@@ -136,3 +136,41 @@ int zmk_endpoints_send_volume_knob_report_alt() {
     return -ENOTSUP;
 }
 #endif // IS_ENABLED(CONFIG_ZMK_HID_IO_VOLUME_KNOB)
+
+#if IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)
+int zmk_endpoints_send_plover_hid_report_alt() {
+    struct zmk_endpoint_instance current_instance = zmk_endpoint_get_selected();
+
+    switch (current_instance.transport) {
+#if IS_ENABLED(CONFIG_ZMK_USB)
+    case ZMK_TRANSPORT_USB: {
+        int err = zmk_usb_hid_send_plover_hid_report_alt();
+        if (err) {
+            LOG_ERR("FAILED TO SEND OVER USB: %d", err);
+        }
+        return err;
+    }
+#else
+    case ZMK_TRANSPORT_USB: break;
+#endif /* IS_ENABLED(CONFIG_ZMK_USB) */
+
+#if IS_ENABLED(CONFIG_ZMK_BLE)
+    case ZMK_TRANSPORT_BLE: {
+        struct zmk_hid_plover_hid_report_alt *plover_hid_report = zmk_hid_get_plover_hid_report_alt();
+        int err = zmk_hog_send_plover_hid_report_alt(&plover_hid_report->body);
+        if (err) {
+            LOG_ERR("FAILED TO SEND OVER HOG: %d", err);
+        }
+        return err;
+    }
+#else
+    case ZMK_TRANSPORT_BLE: break;
+#endif /* IS_ENABLED(CONFIG_ZMK_BLE) */
+
+    case ZMK_TRANSPORT_NONE: return 0;
+    }
+
+    LOG_ERR("Unsupported endpoint transport %d", current_instance.transport);
+    return -ENOTSUP;
+}
+#endif // IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)

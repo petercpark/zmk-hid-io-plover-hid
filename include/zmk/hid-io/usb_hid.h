@@ -19,3 +19,7 @@ int zmk_usb_hid_send_mouse_report_alt(void);
 #if IS_ENABLED(CONFIG_ZMK_HID_IO_VOLUME_KNOB)
 int zmk_usb_hid_send_volume_knob_report_alt(void);
 #endif // IS_ENABLED(CONFIG_ZMK_HID_IO_VOLUME_KNOB)
+
+#if IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)
+int zmk_usb_hid_send_plover_hid_report_alt(void);
+#endif // IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)

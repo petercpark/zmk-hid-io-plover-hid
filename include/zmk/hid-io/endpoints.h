@@ -19,3 +19,7 @@ int zmk_endpoints_send_mouse_report_alt();
 #if IS_ENABLED(CONFIG_ZMK_HID_IO_VOLUME_KNOB)
 int zmk_endpoints_send_volume_knob_report_alt();
 #endif // IS_ENABLED(CONFIG_ZMK_HID_IO_VOLUME_KNOB)
+
+#if IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)
+int zmk_endpoints_send_plover_hid_report_alt();
+#endif // IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)

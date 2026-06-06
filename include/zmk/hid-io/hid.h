@@ -37,6 +37,11 @@
 #define ZMK_HID_REPORT_ID__IO_VOLUME_KNOB 0x05
 #endif // IS_ENABLED(CONFIG_ZMK_HID_IO_VOLUME_KNOB)
 
+#if IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)
+#include <zmk/hid-io/hid_plover_hid.h>
+#define ZMK_HID_REPORT_ID__IO_PLOVER_HID 0x50
+#endif // IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)
+
 #include <dt-bindings/zmk/hid_usage.h>
 #include <dt-bindings/zmk/hid_usage_pages.h>
 
@@ -150,6 +155,23 @@ static const uint8_t zmk_hid_report_desc_alt[] = {
              | ZMK_HID_MAIN_VAL_NO_PREFERRED),
     HID_END_COLLECTION,
 #endif // IS_ENABLED(CONFIG_ZMK_HID_IO_OUTPUT)
+
+#if IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)
+    // Vendor-defined usage page 0xFF50, usage 0x4C56 ("STN")
+    // Report ID 0x50, 64-bit bitmap of steno key states
+    0x06, 0x50, 0xFF,              // Usage Page (Vendor-Defined 0xFF50)
+    0x0A, 0x56, 0x4C,              // Usage (0x4C56 - "STN")
+    0xA1, 0x02,                    // Collection (Logical)
+    0x85, ZMK_HID_REPORT_ID__IO_PLOVER_HID, // Report ID (0x50)
+    0x25, 0x01,                    // Logical Maximum (1)
+    0x75, 0x01,                    // Report Size (1)
+    0x95, 0x40,                    // Report Count (64)
+    0x05, 0x0A,                    // Usage Page (Ordinal)
+    0x19, 0x00,                    // Usage Minimum (0)
+    0x29, 0x3F,                    // Usage Maximum (63)
+    0x81, 0x02,                    // Input (Data, Variable, Absolute)
+    0xC0,                          // End Collection
+#endif // IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)
 
     // HID_END_COLLECTION,
 };

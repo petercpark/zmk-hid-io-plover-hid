@@ -22,3 +22,7 @@ int zmk_hog_send_mouse_report_alt(struct zmk_hid_mouse_report_body_alt *body);
 #if IS_ENABLED(CONFIG_ZMK_HID_IO_VOLUME_KNOB)
 int zmk_hog_send_volume_knob_report_alt(struct zmk_hid_volume_knob_report_body_alt *body);
 #endif // IS_ENABLED(CONFIG_ZMK_HID_IO_VOLUME_KNOB)
+
+#if IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)
+int zmk_hog_send_plover_hid_report_alt(struct zmk_hid_plover_hid_report_body_alt *body);
+#endif // IS_ENABLED(CONFIG_ZMK_HID_IO_PLOVER_HID)
