@@ -15,8 +15,8 @@ manifest:
   ...
   projects:
     ...
-    - name: zmk-hid-io
-      remote: badjeff
+    - name: zmk-hid-io-plover-hid
+      remote: petercpark
       revision: main
     ...
 ```
@@ -37,9 +37,7 @@ CONFIG_USB_HID_DEVICE_COUNT=2
 CONFIG_ZMK_HID_IO=y
 
 # Enable either one of hid joystick / mouse / hid haptic feedback
-CONFIG_ZMK_HID_IO_JOYSTICK=y
-# CONFIG_ZMK_HID_IO_MOUSE=y
-# CONFIG_ZMK_HID_IO_OUTPUT=y
+# CONFIG_ZMK_HID_IO_PLOVER_HID=y
 
 # Enable logging
 CONFIG_ZMK_HID_IO_LOG_LEVEL_DBG=y
@@ -47,6 +45,18 @@ CONFIG_ZMK_HID_IO_LOG_LEVEL_DBG=y
 
 While module is enabling, a new HID interface shall available from usage page `0xFF0C`. The actual value of usage page and report id could be modified in `include/zmk/hid-io/hid.h`.
 
+
+## Local building
+
+Replace `/workspaces/zmk-modules/zmk-keyboard-polyglot-w1` with the path to the polyglot w1 keyboard module, and replace `/workspaces/zmk-modules/zmk-hid-io-plover-hid` with the path to this module. Separate them with a semicolon as shown.
+
+Also replace `/workspaces/zmk-config/config` with the folder where your config is.
+
+```
+
+west build -b nice_nano -- -DSHIELD=polyglot -DZMK_EXTRA_MODULES="/workspaces/zmk-modules/zmk-keyboard-polyglot-w1;/workspaces/zmk-modules/zmk-hid-io-plover-hid" -DZMK_CONFIG="/workspaces/zmk-config/config"
+
+```
 
 ## How it actually works
 
